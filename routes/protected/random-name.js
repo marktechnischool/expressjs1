@@ -5,13 +5,7 @@ const protectedVerificationRouter = express.Router()
 
 protectedVerificationRouter.use(authenticateApiKey)
 
-const names = [
-    "Prywatny John Doe",
-    "Prywatny John Smith",
-    "Prywatny Jan Kowalski",
-    "Prywatny Krystyna Nowak",
-    "Prywatny Bogumiła Nowacka",
-]
+const names = process.env.REAL_USER_NAMES.split(',')
 
 const getRandomName = () => {
     const randomIndex = Math.floor(Math.random() * names.length)
