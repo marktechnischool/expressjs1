@@ -5,8 +5,10 @@ const bodyParser = require('body-parser')
 
 const protectedVerificationRouter = require('./routes/protected/random-name')
 const publicVerificationRouter = require('./routes/public/random-name')
+const connectToDatabase = require('./db')
 
 const app = express()
+connectToDatabase()
 app.use(bodyParser.json())
 
 app.use('/protected', protectedVerificationRouter)
