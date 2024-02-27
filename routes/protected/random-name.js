@@ -18,7 +18,7 @@ protectedVerificationRouter.get('/student', async (req, resp) => {
 
 protectedVerificationRouter.put('/student/:id', async (req, resp) => {
     try {
-        await Student.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec()
+        await Student.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true }).exec()
         resp.status(204).send()
     } catch (error) {
         resp.status(400).json({ message: error.message })
