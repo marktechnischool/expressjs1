@@ -13,7 +13,17 @@ const getRandomName = async () => {
 }
 
 protectedVerificationRouter.get('/student', async (req, resp) => {
-    resp.json(await Student.find().exec())
+    const perPage = parseInt(req.query.perPage || 10)
+    const page = Math.max(0, parseInt(req.query.page) || 0)
+
+    const students = await Student.find().limit(perPage).skip(perPage * page).exec()
+    const count = await Student.countDocuments().exec()
+
+    resp.json({
+        students,
+        page: page,
+        pages: Math.ceil(count / perPage) - 1
+    })
 })
 
 protectedVerificationRouter.put('/student/:id', async (req, resp) => {
